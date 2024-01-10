@@ -92,9 +92,7 @@ class _UploadscreenState extends State<Uploadscreen> {
                       name = value;
                     });
                   },
-                  decoration: InputDecoration(
-                    
-                    hintText: "Enter Your Name"),
+                  decoration: InputDecoration(hintText: "Enter Your Name"),
                 ),
               ),
             ],

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:taskati_todo_app/core/functions/route.dart';
 import 'package:taskati_todo_app/core/services/local_Storage.dart';
-import 'package:taskati_todo_app/core/utils/font_Style.dart';
 import 'package:taskati_todo_app/features/profile/Edit_proile.dart';
 
 class HomeHeader extends StatefulWidget {
@@ -38,13 +37,20 @@ class _HomeHeaderState extends State<HomeHeader> {
     return Row(
       children: [
         Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text.rich(TextSpan(children: [
               TextSpan(
                   text: "Hello, ",
-                  style: Theme.of(context).textTheme.displaySmall),
-              TextSpan(text: name, style: getsmallfont(color: Colors.blue)),
-            ]))
+                  style: Theme.of(context).textTheme.headlineLarge),
+              TextSpan(
+                  text: name,
+                  style: Theme.of(context).textTheme.headlineLarge),
+            ])),
+            Text(
+              "Have a nice Day",
+              style: Theme.of(context).textTheme.bodySmall,
+            )
           ],
         ),
         Spacer(),

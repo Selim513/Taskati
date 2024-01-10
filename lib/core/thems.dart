@@ -4,11 +4,15 @@ import 'package:taskati_todo_app/core/utils/app_colors.dart';
 import 'package:taskati_todo_app/core/utils/font_Style.dart';
 
 final lightTheme = ThemeData(
+  iconButtonTheme: IconButtonThemeData(
+      style: ButtonStyle(
+          iconColor: MaterialStatePropertyAll(Appcolors.buttonsColor))),
   textTheme: TextTheme(
     displayLarge: getlargefont(color: Appcolors.buttonsColor),
     displaySmall: getsmallfont(color: Appcolors.buttonsColor),
     displayMedium: getmeduimfont(color: Appcolors.buttonsColor),
     bodySmall: getsmallfont(color: Appcolors.blackColor),
+    headlineLarge: getlargefont(color: Appcolors.buttonsColor),
   ),
   scaffoldBackgroundColor: Colors.white,
   appBarTheme: AppBarTheme(
@@ -16,7 +20,7 @@ final lightTheme = ThemeData(
           fontweight: FontWeight.bold, color: Appcolors.buttonsColor),
       backgroundColor: Colors.white,
       centerTitle: true,
-      iconTheme: IconThemeData(color: Colors.white),
+      iconTheme: IconThemeData(color: Appcolors.buttonsColor),
       elevation: 0.0),
   //-----------------Theme Of the inputDecoration---------------------
   inputDecorationTheme: InputDecorationTheme(
@@ -45,9 +49,12 @@ final darkTheme = ThemeData(
   iconTheme: IconThemeData(color: Colors.black),
   //------------------------text Theme----------------------
   textTheme: TextTheme(
-      displayLarge: getlargefont(color: Colors.white),
-      displaySmall: getsmallfont(color: Colors.white),
-      displayMedium: getmeduimfont(color: Colors.white)),
+    displayLarge: getlargefont(color: Colors.white),
+    displaySmall: getsmallfont(color: Colors.white),
+    displayMedium: getmeduimfont(color: Colors.white),
+    bodySmall: getsmallfont(color: Appcolors.lightbackground),
+    headlineLarge: getlargefont(color: Appcolors.buttonsColor),
+  ),
 //----------------------------appbartheme-------------------------
   scaffoldBackgroundColor: Colors.black,
   appBarTheme: AppBarTheme(

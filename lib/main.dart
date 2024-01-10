@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:taskati_todo_app/core/thems.dart';
-import 'package:taskati_todo_app/features/profile/Edit_proile.dart';
+
 import 'package:taskati_todo_app/splash_screen.dart';
 
 Future<void> main() async {
@@ -25,7 +25,7 @@ class _MyAppState extends State<MyApp> {
     return ValueListenableBuilder(
       valueListenable: Hive.box<bool>("mode").listenable(),
       builder: (context, value, child) {
-        bool darkMode = value.get("darkMode", defaultValue: true)!;
+        bool darkMode = value.get("darkMode", defaultValue: false)!;
         return MaterialApp(
           themeMode: darkMode ? ThemeMode.dark : ThemeMode.light,
           theme: lightTheme,

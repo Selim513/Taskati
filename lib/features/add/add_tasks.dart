@@ -63,6 +63,7 @@ class _AddTaskState extends State<AddTask> {
               ),
               Gap(10),
               TextFormField(
+                maxLines: 4,
                 style: Theme.of(context).textTheme.bodySmall,
                 decoration: InputDecoration(
                   hintText: "Enter Note Here",
@@ -79,9 +80,11 @@ class _AddTaskState extends State<AddTask> {
               ),
               Gap(10),
               TextField(
+                readOnly: true,
                 style: Theme.of(context).textTheme.bodySmall,
                 decoration: InputDecoration(
-                  suffixIcon: Icon(Icons.date_range_sharp),
+                  suffixIcon: IconButton(
+                      onPressed: () {}, icon: Icon(Icons.calendar_month_sharp)),
                   hintText: " 1/1/2024",
                 ),
               ),
@@ -103,9 +106,12 @@ class _AddTaskState extends State<AddTask> {
                         SizedBox(
                           height: 55,
                           child: TextFormField(
+                            readOnly: true,
                             style: Theme.of(context).textTheme.bodySmall,
                             decoration: InputDecoration(
-                              suffixIcon: Icon(Icons.timer_outlined),
+                              suffixIcon: IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(Icons.timer_outlined)),
                               hintText: "2:30 AM",
                             ),
                           ),
@@ -129,9 +135,12 @@ class _AddTaskState extends State<AddTask> {
                         SizedBox(
                           height: 55,
                           child: TextFormField(
+                            readOnly: true,
                             style: Theme.of(context).textTheme.bodySmall,
                             decoration: InputDecoration(
-                              suffixIcon: Icon(Icons.timer_sharp),
+                              suffixIcon: IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(Icons.timer_outlined)),
                               hintText: "2:45 Am",
                             ),
                           ),

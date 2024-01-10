@@ -2,13 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:taskati_todo_app/core/functions/route.dart';
+import 'package:taskati_todo_app/core/services/local_Storage.dart';
 import 'package:taskati_todo_app/core/utils/app_colors.dart';
+import 'package:taskati_todo_app/core/widgets/custom_Buttons.dart';
 import 'package:taskati_todo_app/features/home/home.dart';
 import 'package:taskati_todo_app/features/upload/upload_screen.dart';
-import 'package:taskati_todo_app/main.dart';
-
-final bool defaultValue = true;
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -31,9 +31,7 @@ class _EditProfileState extends State<EditProfile> {
             )),
         actions: [
           IconButton(
-              onPressed: () {
-                setState(() {});
-              },
+              onPressed: () {},
               icon: Icon(
                 Icons.dark_mode_rounded,
               ))
@@ -61,7 +59,51 @@ class _EditProfileState extends State<EditProfile> {
                           Theme.of(context).scaffoldBackgroundColor,
                       child: IconButton(
                           color: Appcolors.buttonsColor,
-                          onPressed: () {},
+                          onPressed: () {
+                            showModalBottomSheet(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(20),
+                                      topRight: Radius.circular(20))),
+                              backgroundColor: Colors.black,
+                              context: context,
+                              builder: (context) {
+                                return Padding(
+                                  padding: EdgeInsets.all(20),
+                                  child: Container(
+                                      width: double.infinity,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          SizedBox(
+                                            width: 400,
+                                            child: CustomButtons(
+                                                onPressd: () {
+                                                  uploadFromCamera();
+                                                  setState(() {});
+                                                  Navigator.of(context).pop();
+                                                },
+                                                text: "Upload From Camera"),
+                                          ),
+                                          Gap(10),
+                                          SizedBox(
+                                            width: 400,
+                                            child: CustomButtons(
+                                                onPressd: () {
+                                                  setState(() {
+                                                    uploadFromGallery();
+                                                  });
+                                                },
+                                                text: "Upload From Gallery"),
+                                          )
+                                        ],
+                                      )),
+                                );
+                              },
+                            );
+                          },
                           icon: Icon(Icons.camera_alt_rounded)),
                     ),
                   )
@@ -90,5 +132,27 @@ class _EditProfileState extends State<EditProfile> {
         ),
       ),
     );
+  }
+
+  uploadFromCamera() async {
+    final editPickCamera =
+        await ImagePicker().pickImage(source: ImageSource.camera);
+    if (editPickCamera != null) {
+      appStorage.cachedData("image", editPickCamera.path);
+      setState(() {
+        imagePath = editPickCamera.path;
+      });
+    }
+  }
+
+  uploadFromGallery() async {
+    final editPickCamera =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (editPickCamera != null) {
+      appStorage.cachedData("image", editPickCamera.path);
+      setState(() {
+        imagePath = editPickCamera.path;
+      });
+    }
   }
 }

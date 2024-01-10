@@ -1,6 +1,10 @@
+import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:intl/intl.dart';
 import 'package:taskati_todo_app/core/functions/route.dart';
+import 'package:taskati_todo_app/core/utils/app_colors.dart';
+import 'package:taskati_todo_app/core/utils/font_Style.dart';
 import 'package:taskati_todo_app/core/widgets/custom_Buttons.dart';
 import 'package:taskati_todo_app/features/add/add_tasks.dart';
 
@@ -14,6 +18,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  var Date = DateFormat.yMMMd().format(DateTime.now());
+
   @override
   @override
   Widget build(BuildContext context) {
@@ -28,9 +34,22 @@ class _HomeState extends State<Home> {
             Gap(20),
             Row(
               children: [
-                Text(
-                  "Welcome",
-                  style: Theme.of(context).textTheme.displayMedium,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      Date,
+                      style: Theme.of(context).textTheme.displayLarge,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "Today",
+                          style: getlargefont(),
+                        )
+                      ],
+                    ),
+                  ],
                 ),
                 Spacer(),
                 CustomButtons(
@@ -39,7 +58,24 @@ class _HomeState extends State<Home> {
                     },
                     text: "+ Add Task")
               ],
-            )
+            ),
+            Gap(15),
+            SizedBox(
+              height: 90,
+              child: DatePicker(
+                DateTime.now(),
+                initialSelectedDate: DateTime.now(),
+                selectionColor: Appcolors.buttonsColor,
+                selectedTextColor: Colors.white,
+
+                //    onDateChange: (date) {
+                // New date selected
+                //    setState(() {
+                //    _selectedValue = date as bool;
+                //});
+                //  },
+              ),
+            ),
           ],
         ),
       )),
