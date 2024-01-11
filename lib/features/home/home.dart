@@ -97,17 +97,61 @@ class _HomeState extends State<Home> {
                       tasks.add(element);
                     }
                   }
-                  return Dismissible(
-                      key: UniqueKey(),
-                      background: Container(
-                        color: Colors.red,
-                        child: const Text("Remove"),
-                      ),
-                      secondaryBackground: Container(
-                        color: Colors.green,
-                        child: const Text("Completed"),
-                      ),
-                      child: TasksWidgets(tasks: tasks));
+                  return ListView.builder(
+                      itemCount: tasks.length,
+                      itemBuilder: (context, index) {
+                        return Dismissible(
+                            key: UniqueKey(),
+                            onDismissed: (direction) {
+                              if (direction == DismissDirection.startToEnd) {
+                                box.delete(tasks[index].id);
+                              } else {
+                                box.put(
+                                    tasks[index].id,
+                                    TaskModel(
+                                        id: tasks[index].id,
+                                        title: tasks[index].title,
+                                        note: tasks[index].note,
+                                        date: tasks[index].date,
+                                        startTime: tasks[index].startTime,
+                                        endTime: tasks[index].endTime,
+                                        color: tasks[index].color,
+                                        iscompleted: tasks[index].iscompleted));
+                              }
+                            },
+                            background: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  alignment: Alignment.center,
+                                  height: 200,
+                                  width: 200,
+                                  color: Colors.red,
+                                  child: Text(
+                                    "Remove",
+                                    style: getlargefont(),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            secondaryBackground: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Container(
+                                  alignment: Alignment.center,
+                                  padding: EdgeInsets.all(10),
+                                  width: 200,
+                                  height: 200,
+                                  color: Colors.green,
+                                  child: Text(
+                                    "Complete",
+                                    style: getlargefont(),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            child: TasksWidgets(tasks: tasks[index]));
+                      });
                 },
               ),
             ),

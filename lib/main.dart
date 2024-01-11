@@ -13,8 +13,8 @@ Future<void> main() async {
   await Hive.initFlutter();
   await Hive.openBox("user");
   await Hive.openBox<bool>("mode");
-  await Hive.openBox<TaskModel>("task");
   Hive.registerAdapter(TaskModelAdapter());
+  await Hive.openBox<TaskModel>("task");
   runApp(const MyApp());
 }
 

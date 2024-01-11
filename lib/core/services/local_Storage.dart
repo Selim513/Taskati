@@ -1,5 +1,3 @@
-// ignore_for_file: file_names, camel_case_types, await_only_futures
-
 import 'package:hive/hive.dart';
 
 class appStorage {

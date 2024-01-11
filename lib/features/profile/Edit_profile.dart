@@ -42,6 +42,7 @@ class _EditProfileState extends State<EditProfile> {
   Widget build(BuildContext context) {
     bool isdark = modeBox.get("darkMode") ?? true;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
@@ -149,51 +150,54 @@ class _EditProfileState extends State<EditProfile> {
                         showModalBottomSheet(
                             context: context,
                             builder: (context) {
-                              return Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Form(
-                                  key: formKey,
-                                  child: SingleChildScrollView(
-                                    child: Container(
-                                      height: 200,
-                                      width: double.infinity,
-                                      decoration: BoxDecoration(
-                                          color: Theme.of(context)
-                                              .scaffoldBackgroundColor),
-                                      child: Column(
-                                        children: [
-                                          TextFormField(
-                                            validator: (value) {
-                                              if (value!.isEmpty) {
-                                                return "Your Should Fill the Field";
-                                              }
-                                              return null;
-                                            },
-                                            controller: nameController,
-                                            decoration: const InputDecoration(
-                                              labelText: "Edit ",
+                              return SingleChildScrollView(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Form(
+                                    key: formKey,
+                                    child: SingleChildScrollView(
+                                      child: Container(
+                                        height: 400,
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                            color: Theme.of(context)
+                                                .scaffoldBackgroundColor),
+                                        child: Column(
+                                          children: [
+                                            TextFormField(
+                                              validator: (value) {
+                                                if (value!.isEmpty) {
+                                                  return "Your Should Fill the Field";
+                                                }
+                                                return null;
+                                              },
+                                              controller: nameController,
+                                              decoration: const InputDecoration(
+                                                labelText: "Edit ",
+                                              ),
                                             ),
-                                          ),
-                                          const Gap(10),
-                                          SizedBox(
-                                            width: 400,
-                                            child: CustomButtons(
-                                                onPressd: () {
-                                                  if (formKey.currentState!
-                                                      .validate()) {
-                                                    appStorage.cachedData(
-                                                        "name",
-                                                        nameController.text);
-                                                    Navigator.of(context).pop();
-                                                    setState(() {
-                                                      name =
-                                                          nameController.text;
-                                                    });
-                                                  }
-                                                },
-                                                text: "Confirm"),
-                                          ),
-                                        ],
+                                            const Gap(10),
+                                            SizedBox(
+                                              width: 400,
+                                              child: CustomButtons(
+                                                  onPressd: () {
+                                                    if (formKey.currentState!
+                                                        .validate()) {
+                                                      appStorage.cachedData(
+                                                          "name",
+                                                          nameController.text);
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                      setState(() {
+                                                        name =
+                                                            nameController.text;
+                                                      });
+                                                    }
+                                                  },
+                                                  text: "Confirm"),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
