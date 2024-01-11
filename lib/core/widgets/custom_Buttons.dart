@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:taskati_todo_app/core/utils/app_colors.dart';
 import 'package:taskati_todo_app/core/utils/font_Style.dart';

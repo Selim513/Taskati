@@ -5,11 +5,15 @@ import 'package:taskati_todo_app/core/thems.dart';
 
 import 'package:taskati_todo_app/splash_screen.dart';
 
+import 'core/model/task_model.dart';
+
 Future<void> main() async {
   await Hive.initFlutter();
   await Hive.openBox("user");
   await Hive.openBox<bool>("mode");
-  runApp(MyApp());
+  await Hive.openBox<TaskModel>("task");
+  Hive.registerAdapter(TaskModelAdapter());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {

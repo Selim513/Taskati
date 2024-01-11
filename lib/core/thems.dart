@@ -25,6 +25,7 @@ final lightTheme = ThemeData(
   //-----------------Theme Of the inputDecoration---------------------
   inputDecorationTheme: InputDecorationTheme(
     hintStyle: getnormalfont(),
+    suffixIconColor: Appcolors.buttonsColor,
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(20),
       borderSide: BorderSide(color: Appcolors.buttonsColor),
@@ -46,7 +47,7 @@ final lightTheme = ThemeData(
 );
 
 final darkTheme = ThemeData(
-  iconTheme: IconThemeData(color: Colors.black),
+  iconTheme: const IconThemeData(color: Colors.black),
   //------------------------text Theme----------------------
   textTheme: TextTheme(
     displayLarge: getlargefont(color: Colors.white),
@@ -62,11 +63,11 @@ final darkTheme = ThemeData(
           fontweight: FontWeight.bold, color: Appcolors.lightbackground),
       backgroundColor: Appcolors.buttonsColor,
       centerTitle: true,
-      iconTheme: IconThemeData(color: Colors.white),
+      iconTheme: const IconThemeData(color: Colors.white),
       elevation: 0.0),
   //----------------------The inputDecorations of Dark Mode --------------------
   inputDecorationTheme: InputDecorationTheme(
-    suffixIconColor: Colors.white,
+    suffixIconColor: Appcolors.buttonsColor,
     prefixIconColor: Colors.white,
     hintStyle: getnormalfont(color: Colors.white),
     enabledBorder: OutlineInputBorder(

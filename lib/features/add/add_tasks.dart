@@ -1,6 +1,11 @@
+// ignore_for_file: unused_import, non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
 import 'package:taskati_todo_app/core/functions/route.dart';
+import 'package:taskati_todo_app/core/model/task_model.dart';
 import 'package:taskati_todo_app/core/utils/app_colors.dart';
 import 'package:taskati_todo_app/core/widgets/custom_Buttons.dart';
 import 'package:taskati_todo_app/features/home/home.dart';
@@ -13,200 +18,324 @@ class AddTask extends StatefulWidget {
 }
 
 class _AddTaskState extends State<AddTask> {
+  late Box<TaskModel> box;
+  var titleController = TextEditingController();
+  var noteController = TextEditingController();
+
+  DateTime Date = DateTime.now();
+  var startTime = DateFormat("hh:mm: a").format(DateTime.now());
+  var endTime = DateFormat("hh:mm: a").format(DateTime.now());
+  int indexColour = 0;
+  @override
+  void initState() {
+    super.initState();
+    box = Hive.box("task");
+  }
+
   @override
   Widget build(BuildContext context) {
+    var formkey = GlobalKey<FormState>();
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
-              gotoreplace(context, Home());
+              gotoreplace(context, const Home());
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_ios_new,
             )),
         centerTitle: true,
-        title: Text(
+        title: const Text(
           "Add Task",
         ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: Row(
+          child: Form(
+            key: formkey,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Title",
+                        style: Theme.of(context).textTheme.displayMedium,
+                      ),
+                    ],
+                  ),
+                ),
+                const Gap(10),
+                TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "You should fill the field";
+                    }
+                    return null;
+                  },
+                  controller: titleController,
+                  style: Theme.of(context).textTheme.bodySmall,
+                  decoration: const InputDecoration(
+                    hintText: "Enter Title Here",
+                  ),
+                ),
+                const Gap(10),
+                Row(
                   children: [
                     Text(
-                      "Title",
+                      "Note",
                       style: Theme.of(context).textTheme.displayMedium,
                     ),
                   ],
                 ),
-              ),
-              Gap(10),
-              TextFormField(
-                style: Theme.of(context).textTheme.bodySmall,
-                decoration: InputDecoration(
-                  hintText: "Enter Title Here",
-                ),
-              ),
-              Gap(10),
-              Row(
-                children: [
-                  Text(
-                    "Note",
-                    style: Theme.of(context).textTheme.displayMedium,
+                const Gap(10),
+                TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "You should fill the field";
+                    }
+                    return null;
+                  },
+                  controller: noteController,
+                  maxLines: 4,
+                  style: Theme.of(context).textTheme.bodySmall,
+                  decoration: const InputDecoration(
+                    hintText: "Enter Note Here",
                   ),
-                ],
-              ),
-              Gap(10),
-              TextFormField(
-                maxLines: 4,
-                style: Theme.of(context).textTheme.bodySmall,
-                decoration: InputDecoration(
-                  hintText: "Enter Note Here",
                 ),
-              ),
-              Gap(10),
-              Row(
-                children: [
-                  Text(
-                    "Date",
-                    style: Theme.of(context).textTheme.displayMedium,
-                  ),
-                ],
-              ),
-              Gap(10),
-              TextField(
-                readOnly: true,
-                style: Theme.of(context).textTheme.bodySmall,
-                decoration: InputDecoration(
-                  suffixIcon: IconButton(
-                      onPressed: () {}, icon: Icon(Icons.calendar_month_sharp)),
-                  hintText: " 1/1/2024",
-                ),
-              ),
-              Gap(10),
-              Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              "Start Time",
-                              style: Theme.of(context).textTheme.displaySmall,
-                            ),
-                          ],
-                        ),
-                        Gap(10),
-                        SizedBox(
-                          height: 55,
-                          child: TextFormField(
-                            readOnly: true,
-                            style: Theme.of(context).textTheme.bodySmall,
-                            decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(Icons.timer_outlined)),
-                              hintText: "2:30 AM",
-                            ),
-                          ),
-                        ),
-                      ],
+                const Gap(10),
+                Row(
+                  children: [
+                    Text(
+                      "Date",
+                      style: Theme.of(context).textTheme.displayMedium,
                     ),
+                  ],
+                ),
+                const Gap(10),
+                TextFormField(
+                  readOnly: true,
+                  style: Theme.of(context).textTheme.bodySmall,
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          getTaskDate();
+                        },
+                        icon: const Icon(Icons.calendar_month_sharp)),
+                    hintText: DateFormat.yMd().format(DateTime.now()),
                   ),
-                  Gap(50),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              "End Time",
-                              style: Theme.of(context).textTheme.displaySmall,
-                            ),
-                          ],
-                        ),
-                        Gap(10),
-                        SizedBox(
-                          height: 55,
-                          child: TextFormField(
-                            readOnly: true,
-                            style: Theme.of(context).textTheme.bodySmall,
-                            decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(Icons.timer_outlined)),
-                              hintText: "2:45 Am",
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              Gap(10),
-              Row(
-                children: [
-                  Row(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                ),
+                const Gap(10),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
                         children: [
                           Row(
                             children: [
                               Text(
-                                "Color",
-                                style: Theme.of(context).textTheme.displayLarge,
+                                "Start Time",
+                                style: Theme.of(context).textTheme.displaySmall,
                               ),
                             ],
                           ),
+                          const Gap(10),
+                          SizedBox(
+                            height: 55,
+                            child: TextFormField(
+                              readOnly: true,
+                              style: Theme.of(context).textTheme.bodySmall,
+                              decoration: InputDecoration(
+                                suffixIcon: IconButton(
+                                    onPressed: () {
+                                      getTaskStartTime();
+                                    },
+                                    icon: const Icon(Icons.timer_outlined)),
+                                hintText: startTime,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Gap(50),
+                    Expanded(
+                      child: Column(
+                        children: [
                           Row(
-                            mainAxisSize: MainAxisSize.min,
                             children: [
-                              IconButton(
-                                padding: EdgeInsetsDirectional.zero,
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.check_circle,
-                                  size: 30,
-                                  color: Colors.blue,
-                                ),
-                              ),
-                              IconButton(
-                                padding: EdgeInsetsDirectional.zero,
-                                onPressed: () {},
-                                icon: Icon(Icons.circle,
-                                    size: 30, color: Appcolors.orangeColor),
-                              ),
-                              IconButton(
-                                padding: EdgeInsetsDirectional.zero,
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.circle,
-                                  size: 30,
-                                  color: Colors.red,
-                                ),
+                              Text(
+                                "End Time",
+                                style: Theme.of(context).textTheme.displaySmall,
                               ),
                             ],
-                          )
+                          ),
+                          const Gap(10),
+                          SizedBox(
+                            height: 55,
+                            child: TextFormField(
+                              readOnly: true,
+                              style: Theme.of(context).textTheme.bodySmall,
+                              decoration: InputDecoration(
+                                suffixIcon: IconButton(
+                                    onPressed: () {
+                                      getTaskEndTime();
+                                    },
+                                    icon: const Icon(Icons.timer_outlined)),
+                                hintText: endTime,
+                              ),
+                            ),
+                          ),
                         ],
-                      )
-                    ],
-                  ),
-                  Spacer(),
-                  CustomButtons(onPressd: () {}, text: "+ Add Task")
-                ],
-              ),
-            ],
+                      ),
+                    ),
+                  ],
+                ),
+                const Gap(10),
+                Row(
+                  children: [
+                    Row(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  "Color",
+                                  style:
+                                      Theme.of(context).textTheme.displayLarge,
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      indexColour = 0;
+                                    });
+                                  },
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.blue,
+                                    child: indexColour == 0
+                                        ? const Icon(
+                                            Icons.check,
+                                            color: Colors.white,
+                                          )
+                                        : const SizedBox(),
+                                  ),
+                                ),
+                                const Gap(10),
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      indexColour = 1;
+                                    });
+                                  },
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.orange,
+                                    child: indexColour == 1
+                                        ? const Icon(
+                                            Icons.check,
+                                            color: Colors.white,
+                                          )
+                                        : const SizedBox(),
+                                  ),
+                                ),
+                                const Gap(10),
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      indexColour = 2;
+                                    });
+                                  },
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.red,
+                                    child: indexColour == 2
+                                        ? const Icon(
+                                            Icons.check,
+                                            color: Colors.white,
+                                          )
+                                        : const SizedBox(),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                    const Spacer(),
+                    CustomButtons(
+                        onPressd: () async {
+                          if (formkey.currentState!.validate()) {
+                            String id =
+                                "${titleController.text}$startTime ${DateTime.now().millisecond} ";
+                            box.put(
+                                id,
+                                TaskModel(
+                                    id: id,
+                                    title: titleController.text,
+                                    note: noteController.text,
+                                    date: Date.toIso8601String(),
+                                    startTime: startTime,
+                                    endTime: endTime,
+                                    color: indexColour,
+                                    iscompleted: false));
+                            gotoreplace(context, const Home());
+                            
+                          }
+                        },
+                        text: "+ Add Task")
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
+  }
+
+  getTaskDate() {
+    showDatePicker(
+      initialDate: DateTime.now(),
+      context: context,
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2030),
+    ).then((value) {
+      if (value != null) {
+        setState(() {
+          Date = value;
+        });
+      }
+    });
+  }
+
+  getTaskStartTime() {
+    showTimePicker(context: context, initialTime: TimeOfDay.now())
+        .then((value) {
+      if (value != null) {
+        setState(() {
+          startTime = value.format(context);
+        });
+      }
+    });
+  }
+
+  getTaskEndTime() {
+    showTimePicker(context: context, initialTime: TimeOfDay.now())
+        .then((value) {
+      if (value != null) {
+        setState(() {
+          endTime = value.format(context);
+        });
+      }
+    });
   }
 }

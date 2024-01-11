@@ -1,7 +1,10 @@
+// ignore_for_file: file_names
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:taskati_todo_app/core/functions/route.dart';
 import 'package:taskati_todo_app/core/services/local_Storage.dart';
@@ -18,22 +21,44 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  late Box<bool> modeBox;
+
+  @override
+  void initState() {
+    super.initState();
+    modeBox = Hive.box("mode");
+
+    appStorage.getcahcedData("name").then((value) {
+      name = value;
+    });
+    appStorage.getcahcedData("image").then((value) {
+      imagePath = value;
+    });
+  }
+
+  var formKey = GlobalKey<FormState>();
+  var nameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    bool isdark = modeBox.get("darkMode") ?? true;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
-              gotoreplace(context, Home());
+              gotoreplace(context, const Home());
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_ios_new,
             )),
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  modeBox.put("darkMode", !isdark);
+                });
+              },
               icon: Icon(
-                Icons.dark_mode_rounded,
+                isdark ? Icons.dark_mode_rounded : Icons.light_mode_rounded,
               ))
         ],
       ),
@@ -49,7 +74,7 @@ class _EditProfileState extends State<EditProfile> {
                     radius: 100,
                     backgroundImage: (imagePath != null)
                         ? FileImage(File(imagePath!)) as ImageProvider
-                        : AssetImage("assets/user.png"),
+                        : const AssetImage("assets/user.png"),
                   ),
                   Positioned(
                     bottom: 0,
@@ -61,7 +86,7 @@ class _EditProfileState extends State<EditProfile> {
                           color: Appcolors.buttonsColor,
                           onPressed: () {
                             showModalBottomSheet(
-                              shape: RoundedRectangleBorder(
+                              shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(20),
                                       topRight: Radius.circular(20))),
@@ -69,8 +94,8 @@ class _EditProfileState extends State<EditProfile> {
                               context: context,
                               builder: (context) {
                                 return Padding(
-                                  padding: EdgeInsets.all(20),
-                                  child: Container(
+                                  padding: const EdgeInsets.all(20),
+                                  child: SizedBox(
                                       width: double.infinity,
                                       child: Column(
                                         mainAxisAlignment:
@@ -87,7 +112,7 @@ class _EditProfileState extends State<EditProfile> {
                                                 },
                                                 text: "Upload From Camera"),
                                           ),
-                                          Gap(10),
+                                          const Gap(10),
                                           SizedBox(
                                             width: 400,
                                             child: CustomButtons(
@@ -104,23 +129,78 @@ class _EditProfileState extends State<EditProfile> {
                               },
                             );
                           },
-                          icon: Icon(Icons.camera_alt_rounded)),
+                          icon: const Icon(Icons.camera_alt_rounded)),
                     ),
                   )
                 ],
               ),
-              Gap(30),
-              Divider(
+              const Gap(30),
+              const Divider(
                 indent: 30,
                 endIndent: 30,
               ),
-              Gap(30),
+              const Gap(30),
               Row(
                 children: [
                   Text(name, style: Theme.of(context).textTheme.displayMedium),
-                  Spacer(),
+                  const Spacer(),
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              return Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Form(
+                                  key: formKey,
+                                  child: SingleChildScrollView(
+                                    child: Container(
+                                      height: 200,
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                          color: Theme.of(context)
+                                              .scaffoldBackgroundColor),
+                                      child: Column(
+                                        children: [
+                                          TextFormField(
+                                            validator: (value) {
+                                              if (value!.isEmpty) {
+                                                return "Your Should Fill the Field";
+                                              }
+                                              return null;
+                                            },
+                                            controller: nameController,
+                                            decoration: const InputDecoration(
+                                              labelText: "Edit ",
+                                            ),
+                                          ),
+                                          const Gap(10),
+                                          SizedBox(
+                                            width: 400,
+                                            child: CustomButtons(
+                                                onPressd: () {
+                                                  if (formKey.currentState!
+                                                      .validate()) {
+                                                    appStorage.cachedData(
+                                                        "name",
+                                                        nameController.text);
+                                                    Navigator.of(context).pop();
+                                                    setState(() {
+                                                      name =
+                                                          nameController.text;
+                                                    });
+                                                  }
+                                                },
+                                                text: "Confirm"),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            });
+                      },
                       icon: Icon(
                         Icons.edit_outlined,
                         color: Appcolors.buttonsColor,

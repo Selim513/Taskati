@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, camel_case_types
+
 import 'package:hive/hive.dart';
 
 class appStorage {

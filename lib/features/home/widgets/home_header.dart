@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:taskati_todo_app/core/functions/route.dart';
 import 'package:taskati_todo_app/core/services/local_Storage.dart';
-import 'package:taskati_todo_app/features/profile/Edit_proile.dart';
+import 'package:taskati_todo_app/features/profile/Edit_profile.dart';
 
 class HomeHeader extends StatefulWidget {
   const HomeHeader({
@@ -53,16 +53,16 @@ class _HomeHeaderState extends State<HomeHeader> {
             )
           ],
         ),
-        Spacer(),
+        const Spacer(),
         GestureDetector(
           onTap: () {
-            gotopush(context, EditProfile());
+            gotopush(context, const EditProfile());
           },
           child: CircleAvatar(
             radius: 30,
             backgroundImage: (imagePath != null)
                 ? FileImage(File(imagePath!)) as ImageProvider
-                : AssetImage("assets/user.png"),
+                : const AssetImage("assets/user.png"),
           ),
         ),
       ],

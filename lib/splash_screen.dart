@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
 import 'package:taskati_todo_app/core/functions/route.dart';
 import 'package:taskati_todo_app/core/utils/font_Style.dart';
+import 'package:taskati_todo_app/features/home/home.dart';
 import 'package:taskati_todo_app/features/upload/upload_screen.dart';
 
 class Splashscreen extends StatefulWidget {
@@ -17,7 +18,7 @@ class _SplashscreenState extends State<Splashscreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 4, milliseconds: 600), () {
-      gotoreplace(context,const Uploadscreen());
+      gotoreplace(context, const Uploadscreen());
     });
   }
 
@@ -33,7 +34,7 @@ class _SplashscreenState extends State<Splashscreen> {
               "Taskati",
               style: Theme.of(context).textTheme.displayLarge,
             ),
-            Gap(15),
+            const Gap(15),
             Text(
               "It\'s time to Get Organized",
               style: getmeduimfont(

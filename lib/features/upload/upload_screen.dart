@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -32,7 +34,7 @@ class _UploadscreenState extends State<Uploadscreen> {
                 if (imagePath != null && name.isNotEmpty) {
                   appStorage.cachedData("image", imagePath!);
                   appStorage.cachedData("name", name);
-                  gotoreplace(context, Home());
+                  gotoreplace(context, const Home());
                 } else if (imagePath == null && name.isNotEmpty) {
                   ShowsnakeBar(context, "Please Enter Your Photo");
                 } else if (imagePath != null && name.isEmpty) {
@@ -57,9 +59,9 @@ class _UploadscreenState extends State<Uploadscreen> {
                 radius: 100,
                 backgroundImage: (imagePath != null)
                     ? FileImage(File(imagePath!)) as ImageProvider
-                    : AssetImage("assets/user.png"),
+                    : const AssetImage("assets/user.png"),
               ),
-              Gap(20),
+              const Gap(20),
               CustomButtons(
                 onPressd: () {
                   setState(() {
@@ -68,7 +70,7 @@ class _UploadscreenState extends State<Uploadscreen> {
                 },
                 text: "Take A Camera Shot",
               ),
-              Gap(10),
+              const Gap(10),
               CustomButtons(
                   onPressd: () {
                     setState(() {
@@ -76,15 +78,15 @@ class _UploadscreenState extends State<Uploadscreen> {
                     });
                   },
                   text: "Upload From Gallery"),
-              Gap(30),
+              const Gap(30),
               Divider(
                 indent: 50,
                 endIndent: 50,
                 color: Appcolors.greyColor,
               ),
-              Gap(30),
+              const Gap(30),
               Container(
-                padding: EdgeInsets.only(left: 20, right: 20),
+                padding: const EdgeInsets.only(left: 20, right: 20),
                 child: TextFormField(
                   style: Theme.of(context).textTheme.bodySmall,
                   onChanged: (value) {
@@ -92,7 +94,7 @@ class _UploadscreenState extends State<Uploadscreen> {
                       name = value;
                     });
                   },
-                  decoration: InputDecoration(hintText: "Enter Your Name"),
+                  decoration: const InputDecoration(hintText: "Enter Your Name"),
                 ),
               ),
             ],
