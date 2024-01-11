@@ -101,11 +101,11 @@ class _HomeState extends State<Home> {
                       key: UniqueKey(),
                       background: Container(
                         color: Colors.red,
-                        child: Text("Remove"),
+                        child: const Text("Remove"),
                       ),
                       secondaryBackground: Container(
                         color: Colors.green,
-                        child: Text("Completed"),
+                        child: const Text("Completed"),
                       ),
                       child: TasksWidgets(tasks: tasks));
                 },

@@ -1,9 +1,10 @@
+// ignore_for_file: unnecessary_string_escapes
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
 import 'package:taskati_todo_app/core/functions/route.dart';
 import 'package:taskati_todo_app/core/utils/font_Style.dart';
-import 'package:taskati_todo_app/features/home/home.dart';
 import 'package:taskati_todo_app/features/upload/upload_screen.dart';
 
 class Splashscreen extends StatefulWidget {

@@ -1,7 +1,8 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:taskati_todo_app/core/model/task_model.dart';
-import 'package:taskati_todo_app/core/utils/app_colors.dart';
 import 'package:taskati_todo_app/core/utils/font_Style.dart';
 
 class TasksWidgets extends StatelessWidget {
@@ -57,7 +58,7 @@ class TasksWidgets extends StatelessWidget {
                   const Gap(10),
                   Text(
                     tasks[index].note,
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                   )
                 ],
               ),
