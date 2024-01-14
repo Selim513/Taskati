@@ -45,8 +45,52 @@ final lightTheme = ThemeData(
   ),
   fontFamily: GoogleFonts.poppins().fontFamily,
 );
-
+//---------------------------------------Dark theme---------------------------------
 final darkTheme = ThemeData(
+  timePickerTheme: TimePickerThemeData(
+      dayPeriodTextColor: Colors.white,
+      hourMinuteTextColor: Appcolors.lightbackground,
+      hourMinuteColor: Colors.black,
+      hourMinuteTextStyle: TextStyle(fontSize: 30),
+      cancelButtonStyle: ButtonStyle(
+        foregroundColor: MaterialStatePropertyAll(Colors.blue),
+      ),
+      confirmButtonStyle: ButtonStyle(
+        foregroundColor: MaterialStatePropertyAll(Colors.blue),
+      ),
+      dialBackgroundColor: Colors.grey,
+      dialHandColor: Colors.blue,
+      entryModeIconColor: Colors.white,
+      shape: Border.all(width: double.infinity),
+      helpTextStyle: TextStyle(
+        color: Colors.white,
+      ),
+      backgroundColor: Appcolors.datePickerBackground),
+
+  datePickerTheme: DatePickerThemeData(
+    dayForegroundColor: MaterialStatePropertyAll(Appcolors.lightbackground),
+    backgroundColor: Appcolors.datePickerBackground,
+    shape: Border.all(
+      width: double.infinity,
+    ),
+    todayForegroundColor: MaterialStatePropertyAll(Colors.white),
+    //todayBackgroundColor: MaterialStatePropertyAll(Colors.blue),
+    weekdayStyle: TextStyle(color: Colors.grey),
+
+    dayOverlayColor: MaterialStatePropertyAll(Colors.blue),
+
+    shadowColor: Colors.green,
+    surfaceTintColor: Appcolors.datePickerBackground,
+    headerBackgroundColor: Appcolors.datePickerBackground,
+    headerForegroundColor: Appcolors.lightbackground,
+    cancelButtonStyle: ButtonStyle(
+        textStyle: MaterialStatePropertyAll(TextStyle(color: Colors.red))),
+    confirmButtonStyle: ButtonStyle(
+      textStyle: MaterialStatePropertyAll(TextStyle(color: Colors.blue)),
+    ),
+  ),
+  dataTableTheme:
+      DataTableThemeData(dataTextStyle: TextStyle(color: Colors.red)),
   iconTheme: const IconThemeData(color: Colors.black),
   //------------------------text Theme----------------------
   textTheme: TextTheme(
@@ -58,6 +102,7 @@ final darkTheme = ThemeData(
   ),
 //----------------------------appbartheme-------------------------
   scaffoldBackgroundColor: Colors.black,
+
   appBarTheme: AppBarTheme(
       titleTextStyle: getmeduimfont(
           fontweight: FontWeight.bold, color: Appcolors.lightbackground),

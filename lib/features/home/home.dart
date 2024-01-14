@@ -53,7 +53,7 @@ class _HomeState extends State<Home> {
                           children: [
                             Text(
                               "Today",
-                              style: getlargefont(),
+                              style: Theme.of(context).textTheme.displayLarge,
                             )
                           ],
                         ),
@@ -67,7 +67,7 @@ class _HomeState extends State<Home> {
                         text: "+ Add Task")
                   ],
                 ),
-                const Gap(15),
+                Gap(15),
                 SizedBox(
                   height: 100,
                   child: DatePicker(
@@ -75,6 +75,9 @@ class _HomeState extends State<Home> {
                     initialSelectedDate: DateTime.now(),
                     selectionColor: Appcolors.buttonsColor,
                     selectedTextColor: Colors.white,
+                    dateTextStyle: Theme.of(context).textTheme.bodySmall!,
+                    monthTextStyle: Theme.of(context).textTheme.bodySmall!,
+                    dayTextStyle: Theme.of(context).textTheme.bodySmall!,
                     onDateChange: (date) {
                       //  New date selected
                       setState(() {
@@ -103,9 +106,7 @@ class _HomeState extends State<Home> {
                         return Dismissible(
                             key: UniqueKey(),
                             onDismissed: (direction) {
-                              if (direction == DismissDirection.startToEnd) {
-                                box.delete(tasks[index].id);
-                              } else {
+                              if (direction == DismissDirection.endToStart) {
                                 box.put(
                                     tasks[index].id,
                                     TaskModel(
@@ -115,8 +116,10 @@ class _HomeState extends State<Home> {
                                         date: tasks[index].date,
                                         startTime: tasks[index].startTime,
                                         endTime: tasks[index].endTime,
-                                        color: tasks[index].color,
-                                        iscompleted: tasks[index].iscompleted));
+                                        color: 3,
+                                        iscompleted: true));
+                              } else {
+                                box.delete(tasks[index].id);
                               }
                             },
                             background: Row(

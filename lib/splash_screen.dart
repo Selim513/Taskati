@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
 import 'package:taskati_todo_app/core/functions/route.dart';
+import 'package:taskati_todo_app/core/services/local_Storage.dart';
 import 'package:taskati_todo_app/core/utils/font_Style.dart';
 import 'package:taskati_todo_app/features/home/home.dart';
 import 'package:taskati_todo_app/features/upload/upload_screen.dart';
@@ -16,11 +17,17 @@ class Splashscreen extends StatefulWidget {
 }
 
 class _SplashscreenState extends State<Splashscreen> {
+  bool isupload = false;
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 4, milliseconds: 600), () {
-      gotoreplace(context, const Home());
+    appStorage.getcahcedData(appStorage.IS_UPLOAD).then((value) {
+      setState(() {
+        //   isupload = value;
+      });
+    });
+    Future.delayed(const Duration(seconds: 4), () {
+      gotoreplace(context, isupload ? Home() : Uploadscreen());
     });
   }
 

@@ -288,7 +288,6 @@ class _AddTaskState extends State<AddTask> {
                                     color: indexColour,
                                     iscompleted: false));
                             gotoreplace(context, const Home());
-                            
                           }
                         },
                         text: "+ Add Task")

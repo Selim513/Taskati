@@ -5,6 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:taskati_todo_app/core/thems.dart';
 
+
 import 'package:taskati_todo_app/splash_screen.dart';
 
 import 'core/model/task_model.dart';
@@ -31,13 +32,13 @@ class _MyAppState extends State<MyApp> {
     return ValueListenableBuilder(
       valueListenable: Hive.box<bool>("mode").listenable(),
       builder: (context, value, child) {
-        bool darkMode = value.get("darkMode", defaultValue: false)!;
+        bool darkMode = value.get("darkMode", defaultValue: true)!;
         return MaterialApp(
           themeMode: darkMode ? ThemeMode.dark : ThemeMode.light,
           theme: lightTheme,
           darkTheme: darkTheme,
           debugShowCheckedModeBanner: false,
-          home: const Splashscreen(),
+          home: Splashscreen(),
         );
       },
     );

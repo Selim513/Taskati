@@ -32,9 +32,10 @@ class _UploadscreenState extends State<Uploadscreen> {
           TextButton(
               onPressed: () {
                 if (imagePath != null && name.isNotEmpty) {
-                  appStorage.cachedData("image", imagePath!);
-                  appStorage.cachedData("name", name);
-                  gotoreplace(context, const Home());
+                  appStorage.cachedData(appStorage.IS_UPLOAD, true);
+                  appStorage.cachedData(appStorage.IMAGE, imagePath!);
+                  appStorage.cachedData(appStorage.NAME, name);
+                  gotoreplace(context, Home());
                 } else if (imagePath == null && name.isNotEmpty) {
                   ShowsnakeBar(context, "Please Enter Your Photo");
                 } else if (imagePath != null && name.isEmpty) {
@@ -94,7 +95,8 @@ class _UploadscreenState extends State<Uploadscreen> {
                       name = value;
                     });
                   },
-                  decoration: const InputDecoration(hintText: "Enter Your Name"),
+                  decoration:
+                      const InputDecoration(hintText: "Enter Your Name"),
                 ),
               ),
             ],
