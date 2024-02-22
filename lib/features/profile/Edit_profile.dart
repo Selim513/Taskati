@@ -172,9 +172,14 @@ class _EditProfileState extends State<EditProfile> {
                                                 return null;
                                               },
                                               controller: nameController,
-                                              decoration: const InputDecoration(
-                                                labelText: "Edit ",
-                                              ),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displaySmall,
+                                              decoration: InputDecoration(
+                                                  labelText: "Edit ",
+                                                  labelStyle: Theme.of(context)
+                                                      .textTheme
+                                                      .displayMedium),
                                             ),
                                             const Gap(10),
                                             SizedBox(

@@ -51,18 +51,18 @@ final darkTheme = ThemeData(
       dayPeriodTextColor: Colors.white,
       hourMinuteTextColor: Appcolors.lightbackground,
       hourMinuteColor: Colors.black,
-      hourMinuteTextStyle: TextStyle(fontSize: 30),
-      cancelButtonStyle: ButtonStyle(
+      hourMinuteTextStyle: const TextStyle(fontSize: 30),
+      cancelButtonStyle: const ButtonStyle(
         foregroundColor: MaterialStatePropertyAll(Colors.blue),
       ),
-      confirmButtonStyle: ButtonStyle(
+      confirmButtonStyle: const ButtonStyle(
         foregroundColor: MaterialStatePropertyAll(Colors.blue),
       ),
       dialBackgroundColor: Colors.grey,
       dialHandColor: Colors.blue,
       entryModeIconColor: Colors.white,
       shape: Border.all(width: double.infinity),
-      helpTextStyle: TextStyle(
+      helpTextStyle: const TextStyle(
         color: Colors.white,
       ),
       backgroundColor: Appcolors.datePickerBackground),
@@ -73,24 +73,24 @@ final darkTheme = ThemeData(
     shape: Border.all(
       width: double.infinity,
     ),
-    todayForegroundColor: MaterialStatePropertyAll(Colors.white),
+    todayForegroundColor: const MaterialStatePropertyAll(Colors.white),
     //todayBackgroundColor: MaterialStatePropertyAll(Colors.blue),
-    weekdayStyle: TextStyle(color: Colors.grey),
+    weekdayStyle: const TextStyle(color: Colors.grey),
 
-    dayOverlayColor: MaterialStatePropertyAll(Colors.blue),
+    dayOverlayColor: const MaterialStatePropertyAll(Colors.blue),
 
     shadowColor: Colors.green,
     surfaceTintColor: Appcolors.datePickerBackground,
     headerBackgroundColor: Appcolors.datePickerBackground,
     headerForegroundColor: Appcolors.lightbackground,
-    cancelButtonStyle: ButtonStyle(
+    cancelButtonStyle: const ButtonStyle(
         textStyle: MaterialStatePropertyAll(TextStyle(color: Colors.red))),
-    confirmButtonStyle: ButtonStyle(
+    confirmButtonStyle: const ButtonStyle(
       textStyle: MaterialStatePropertyAll(TextStyle(color: Colors.blue)),
     ),
   ),
   dataTableTheme:
-      DataTableThemeData(dataTextStyle: TextStyle(color: Colors.red)),
+      const DataTableThemeData(dataTextStyle: TextStyle(color: Colors.red)),
   iconTheme: const IconThemeData(color: Colors.black),
   //------------------------text Theme----------------------
   textTheme: TextTheme(

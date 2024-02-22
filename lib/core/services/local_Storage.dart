@@ -10,10 +10,10 @@ class appStorage {
     box.put(key, value);
   }
 
-  static Future<String> getcahcedData(
+  static Future<dynamic> getcahcedData(
     dynamic key,
   ) async {
-    var box = await Hive.box("user");
+    var box = Hive.box("user");
     return box.get(key);
   }
 }

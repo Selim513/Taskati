@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:taskati_todo_app/core/thems.dart';
-
-
 import 'package:taskati_todo_app/splash_screen.dart';
 
 import 'core/model/task_model.dart';
@@ -38,7 +36,7 @@ class _MyAppState extends State<MyApp> {
           theme: lightTheme,
           darkTheme: darkTheme,
           debugShowCheckedModeBanner: false,
-          home: Splashscreen(),
+          home: const Splashscreen(),
         );
       },
     );

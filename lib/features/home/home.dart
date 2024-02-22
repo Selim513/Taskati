@@ -12,7 +12,6 @@ import 'package:taskati_todo_app/core/utils/font_Style.dart';
 import 'package:taskati_todo_app/core/widgets/custom_Buttons.dart';
 import 'package:taskati_todo_app/features/add/add_tasks.dart';
 import 'package:taskati_todo_app/features/home/widgets/Tasks.dart';
-
 import 'package:taskati_todo_app/features/home/widgets/home_header.dart';
 
 class Home extends StatefulWidget {
@@ -67,7 +66,7 @@ class _HomeState extends State<Home> {
                         text: "+ Add Task")
                   ],
                 ),
-                Gap(15),
+                const Gap(15),
                 SizedBox(
                   height: 100,
                   child: DatePicker(
@@ -142,7 +141,7 @@ class _HomeState extends State<Home> {
                               children: [
                                 Container(
                                   alignment: Alignment.center,
-                                  padding: EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(10),
                                   width: 200,
                                   height: 200,
                                   color: Colors.green,

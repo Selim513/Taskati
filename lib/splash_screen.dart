@@ -23,11 +23,11 @@ class _SplashscreenState extends State<Splashscreen> {
     super.initState();
     appStorage.getcahcedData(appStorage.IS_UPLOAD).then((value) {
       setState(() {
-        //   isupload = value;
+        isupload = value ?? false;
       });
     });
     Future.delayed(const Duration(seconds: 4), () {
-      gotoreplace(context, isupload ? Home() : Uploadscreen());
+      gotoreplace(context, isupload ? const Home() : const Uploadscreen());
     });
   }
 
