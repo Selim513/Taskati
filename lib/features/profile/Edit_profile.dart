@@ -59,7 +59,7 @@ class _EditProfileState extends State<EditProfile> {
                 });
               },
               icon: Icon(
-                isdark ? Icons.dark_mode_rounded : Icons.light_mode_rounded,
+                isdark ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
               ))
         ],
       ),
