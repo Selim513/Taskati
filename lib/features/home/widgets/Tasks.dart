@@ -16,59 +16,83 @@ class TasksWidgets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(10),
-      margin: const EdgeInsets.only(bottom: 5),
+      padding: const EdgeInsets.all(20),
+      margin: const EdgeInsets.only(bottom: 10),
+      width: double.infinity,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: tasks.color == 0
-              ? Colors.blue
-              : tasks.color == 1
-                  ? Colors.orange
-                  : tasks.color == 2
-                      ? Colors.red
-                      : Colors.green),
+          color: tasks.color == 3
+              ? Colors.green
+              : tasks.color == 0
+                  ? Colors.blue
+                  : tasks.color == 1
+                      ? Colors.orange
+                      : tasks.color == 2
+                          ? Colors.red
+                          : Colors.blue,
+          borderRadius: BorderRadius.circular(15)),
       child: Row(
         children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      tasks.title,
+                      style: getmeduimfont(color: Colors.white),
+                    ),
+                  ],
+                ),
+                const Gap(10),
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.watch_later_rounded,
+                      color: Colors.white,
+                    ),
+                    const Gap(10),
+                    Text(
+                      tasks.startTime,
+                      style: getsmallfont(color: Colors.white),
+                    ),
+                    Text(
+                      ' - ',
+                      style: getsmallfont(color: Colors.white),
+                    ),
+                    Text(
+                      tasks.endTime,
+                      style: getsmallfont(color: Colors.white),
+                    ),
+                  ],
+                ),
+                const Gap(10),
+                Text(
+                  tasks.note,
+                  overflow: TextOverflow.clip,
+                  style: getmeduimfont(color: Colors.white),
+                ),
+              ],
+            ),
+          ),
+          const Gap(8),
           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                tasks.title,
-                style: getmeduimfont(color: Colors.white),
+              Container(
+                height: 100,
+                color: Colors.white,
+                width: 2,
               ),
-              const Gap(10),
-              Row(
-                children: [
-                  const Icon(
-                    Icons.watch_later_outlined,
-                    color: Colors.white,
-                  ),
-                  const Gap(10),
-                  Text(
-                    "${tasks.startTime}-${tasks.endTime}",
-                    style: getnormalfont(color: Colors.white),
-                  ),
-                ],
-              ),
-              const Gap(10),
-              Text(
-                tasks.note,
-                style: const TextStyle(color: Colors.white),
-              )
             ],
           ),
-          const Spacer(),
-          Container(
-            width: 1,
-            height: 60,
-            color: Colors.white,
-          ),
+          const Gap(5),
           RotatedBox(
-              quarterTurns: 3,
-              child: Text(
-                tasks.iscompleted ? 'Completed' : 'TODO',
-                style: getmeduimfont(color: Colors.white),
-              ))
+            quarterTurns: 3,
+            child: Text(
+              tasks.iscompleted ? 'Completed' : 'TODO',
+              style: getmeduimfont(color: Colors.white),
+            ),
+          )
         ],
       ),
     );

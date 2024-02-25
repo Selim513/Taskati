@@ -22,7 +22,7 @@ class _AddTaskState extends State<AddTask> {
   var titleController = TextEditingController();
   var noteController = TextEditingController();
 
-  DateTime Date = DateTime.now();
+  var Date = DateTime.now();
   var startTime = DateFormat("hh:mm: a").format(DateTime.now());
   var endTime = DateFormat("hh:mm: a").format(DateTime.now());
   int indexColour = 0;
@@ -125,7 +125,7 @@ class _AddTaskState extends State<AddTask> {
                           getTaskDate();
                         },
                         icon: const Icon(Icons.calendar_month_sharp)),
-                    hintText: DateFormat.yMd().format(DateTime.now()),
+                    hintText: DateFormat.yMd().format(Date),
                   ),
                 ),
                 const Gap(10),
@@ -282,11 +282,12 @@ class _AddTaskState extends State<AddTask> {
                                     id: id,
                                     title: titleController.text,
                                     note: noteController.text,
-                                    date: Date.toIso8601String(),
+                                    date: Date.toString(),
                                     startTime: startTime,
                                     endTime: endTime,
                                     color: indexColour,
                                     iscompleted: false));
+                            // print(Date);
                             gotoreplace(context, const Home());
                           }
                         },

@@ -75,7 +75,7 @@ class _EditProfileState extends State<EditProfile> {
                     radius: 100,
                     backgroundImage: (imagePath != null)
                         ? FileImage(File(imagePath!)) as ImageProvider
-                        : const AssetImage("assets/user.png"),
+                        : const AssetImage("assets/person.jpg"),
                   ),
                   Positioned(
                     bottom: 0,
@@ -139,6 +139,7 @@ class _EditProfileState extends State<EditProfile> {
               const Divider(
                 indent: 30,
                 endIndent: 30,
+                color: Color(0xff4f93fe),
               ),
               const Gap(30),
               Row(

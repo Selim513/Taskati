@@ -11,7 +11,7 @@ import 'package:taskati_todo_app/core/utils/app_colors.dart';
 import 'package:taskati_todo_app/core/utils/font_Style.dart';
 import 'package:taskati_todo_app/core/widgets/custom_Buttons.dart';
 import 'package:taskati_todo_app/features/add/add_tasks.dart';
-import 'package:taskati_todo_app/features/home/widgets/Tasks.dart';
+import 'package:taskati_todo_app/features/home/widgets/dissmisbleWidge.dart';
 import 'package:taskati_todo_app/features/home/widgets/home_header.dart';
 
 class Home extends StatefulWidget {
@@ -22,8 +22,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  var Date = DateFormat.yMMMd().format(DateTime.now());
-  var _selectedValue = DateTime.now().toIso8601String();
+  var _selectedValue = DateFormat.yMMMd().format(DateTime.now()).toString();
+  var Date = DateFormat.yMMMMd().format(DateTime.now());
   @override
   @override
   Widget build(BuildContext context) {
@@ -80,7 +80,8 @@ class _HomeState extends State<Home> {
                     onDateChange: (date) {
                       //  New date selected
                       setState(() {
-                        _selectedValue = date.toIso8601String();
+                        _selectedValue = date.toString();
+                        // print(_selectedValue);
                       });
                     },
                   ),
@@ -92,67 +93,41 @@ class _HomeState extends State<Home> {
               child: ValueListenableBuilder<Box<TaskModel>>(
                 valueListenable: Hive.box<TaskModel>("task").listenable(),
                 builder: (context, box, child) {
-                  List<TaskModel> tasks = [];
+                  List<TaskModel> task = [];
                   for (var element in box.values) {
-                    if (_selectedValue.split("T").first ==
-                        element.date.split("T").first) {
-                      tasks.add(element);
+                    if (_selectedValue == element.date) {
+                      task.add(element);
                     }
                   }
+
+                  if (task.isEmpty) {
+                    return Column(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset('assets/empty.png'),
+                              const Gap(10),
+                              Text(
+                                'You do not have any tasks yet!\nAdd new tasks to make your days productive.',
+                                style: getmeduimfont(),
+                                textAlign: TextAlign.center,
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    );
+                  }
+
                   return ListView.builder(
-                      itemCount: tasks.length,
+                      itemCount: task.length,
                       itemBuilder: (context, index) {
-                        return Dismissible(
-                            key: UniqueKey(),
-                            onDismissed: (direction) {
-                              if (direction == DismissDirection.endToStart) {
-                                box.put(
-                                    tasks[index].id,
-                                    TaskModel(
-                                        id: tasks[index].id,
-                                        title: tasks[index].title,
-                                        note: tasks[index].note,
-                                        date: tasks[index].date,
-                                        startTime: tasks[index].startTime,
-                                        endTime: tasks[index].endTime,
-                                        color: 3,
-                                        iscompleted: true));
-                              } else {
-                                box.delete(tasks[index].id);
-                              }
-                            },
-                            background: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  alignment: Alignment.center,
-                                  height: 200,
-                                  width: 200,
-                                  color: Colors.red,
-                                  child: Text(
-                                    "Remove",
-                                    style: getlargefont(),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            secondaryBackground: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Container(
-                                  alignment: Alignment.center,
-                                  padding: const EdgeInsets.all(10),
-                                  width: 200,
-                                  height: 200,
-                                  color: Colors.green,
-                                  child: Text(
-                                    "Complete",
-                                    style: getlargefont(),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            child: TasksWidgets(tasks: tasks[index]));
+                        return DissmisbleWidget(
+                          box: box,
+                          task: task[index],
+                        );
                       });
                 },
               ),

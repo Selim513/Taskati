@@ -30,9 +30,9 @@ class _MyAppState extends State<MyApp> {
     return ValueListenableBuilder(
       valueListenable: Hive.box<bool>("mode").listenable(),
       builder: (context, value, child) {
-        bool darkMode = value.get("darkMode", defaultValue: true)!;
+        bool darkMode = value.get("darkMode", defaultValue: false)!;
         return MaterialApp(
-          themeMode: darkMode ? ThemeMode.dark : ThemeMode.light,
+          themeMode: darkMode ? ThemeMode.light : ThemeMode.dark,
           theme: lightTheme,
           darkTheme: darkTheme,
           debugShowCheckedModeBanner: false,

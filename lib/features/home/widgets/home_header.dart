@@ -44,8 +44,7 @@ class _HomeHeaderState extends State<HomeHeader> {
                   text: "Hello, ",
                   style: Theme.of(context).textTheme.headlineLarge),
               TextSpan(
-                  text: name,
-                  style: Theme.of(context).textTheme.headlineLarge),
+                  text: name, style: Theme.of(context).textTheme.headlineLarge),
             ])),
             Text(
               "Have a nice Day",
@@ -56,13 +55,13 @@ class _HomeHeaderState extends State<HomeHeader> {
         const Spacer(),
         GestureDetector(
           onTap: () {
-            gotopush(context, const EditProfile());
+            gotoreplace(context, const EditProfile());
           },
           child: CircleAvatar(
             radius: 30,
             backgroundImage: (imagePath != null)
                 ? FileImage(File(imagePath!)) as ImageProvider
-                : const AssetImage("assets/user.png"),
+                : const AssetImage("assets/person.jpg"),
           ),
         ),
       ],

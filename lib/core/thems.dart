@@ -106,7 +106,7 @@ final darkTheme = ThemeData(
   appBarTheme: AppBarTheme(
       titleTextStyle: getmeduimfont(
           fontweight: FontWeight.bold, color: Appcolors.lightbackground),
-      backgroundColor: Appcolors.buttonsColor,
+      backgroundColor: const Color(0xff4f93fe),
       centerTitle: true,
       iconTheme: const IconThemeData(color: Colors.white),
       elevation: 0.0),
